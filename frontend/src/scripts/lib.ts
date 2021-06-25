@@ -1,16 +1,16 @@
 var notificationElement = document.getElementById("notification");
 
-export function addClass(element, className) {
+export function addClass(element: Element, className: string) {
     if (!className) return;
     element.className += " " + className;
 }
 
-export function removeClass(element, className) {
+export function removeClass(element: Element, className: string) {
     if (!className) return;
     element.className = element.className.replace(" " + className, "");
 }
 
-export function showNotification(message = null, type = "success") {
+export function showNotification(message: string = "", type = "success") {
     if (!message) return;
 
     notificationElement.className =
@@ -28,7 +28,10 @@ export function showNotification(message = null, type = "success") {
     }, 3000);
 }
 
-export function checkInputIsNotEmpty(inputElement, errorMessage = "") {
+export function checkInputIsNotEmpty(
+    inputElement: HTMLInputElement,
+    errorMessage = "",
+) {
     if (inputElement.value) return true;
 
     showNotification(errorMessage, "error");
@@ -37,7 +40,7 @@ export function checkInputIsNotEmpty(inputElement, errorMessage = "") {
 }
 
 export function checkInputRegExp(
-    inputElement,
+    inputElement: HTMLInputElement,
     regexp = / /,
     errorMessage = "",
 ) {
@@ -49,8 +52,8 @@ export function checkInputRegExp(
 }
 
 export function checkInputLength(
-    inputElement,
-    [min, max] = [],
+    inputElement: HTMLInputElement,
+    [min, max]: Array<number | undefined> = [],
     errorMessage = "",
 ) {
     if (
@@ -64,36 +67,33 @@ export function checkInputLength(
     return false;
 }
 
-export function checkInputErrors(inputElement, checkObject = {}) {
-    if (
-        checkObject.notEmpty &&
-        !checkInputIsNotEmpty(
-            inputElement,
-            checkObject.notEmpty || "Error: input is empty!",
-        )
-    )
-        return false;
-
-    if (
-        checkObject.regexp &&
-        checkObject.regexp.value &&
-        !checkInputRegExp(
-            inputElement,
-            checkObject.regexp.value,
-            checkObject.regexp.message || "Error: error regexp!",
-        )
-    )
-        return false;
-
-    if (
-        checkObject.length &&
-        !checkInputLength(
-            inputElement,
-            [checkObject.length.min, checkObject.length.max],
-            checkObject.length.message || "Error: error length!",
-        )
-    )
-        return false;
-
-    return true;
+export function checkInputErrors(inputElement: any, checkObject = {}) {
+    // if (
+    //     checkObject.notEmpty &&
+    //     !checkInputIsNotEmpty(
+    //         inputElement,
+    //         checkObject.notEmpty || "Error: input is empty!",
+    //     )
+    // )
+    //     return false;
+    // if (
+    //     checkObject.regexp &&
+    //     checkObject.regexp.value &&
+    //     !checkInputRegExp(
+    //         inputElement,
+    //         checkObject.regexp.value,
+    //         checkObject.regexp.message || "Error: error regexp!",
+    //     )
+    // )
+    //     return false;
+    // if (
+    //     checkObject.length &&
+    //     !checkInputLength(
+    //         inputElement,
+    //         [checkObject.length.min, checkObject.length.max],
+    //         checkObject.length.message || "Error: error length!",
+    //     )
+    // )
+    //     return false;
+    // return true;
 }

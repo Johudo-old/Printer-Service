@@ -4,7 +4,7 @@ var labelElement = document.getElementById("file-input-label");
 var labeTextElement = labelElement.getElementsByTagName("span")[0];
 var submitButtonElement = labelElement.getElementsByTagName("button")[0];
 
-var droppedFile;
+var droppedFile: File;
 
 var acceptedFileTypes = ["application/pdf"];
 
@@ -65,14 +65,15 @@ labelElement.addEventListener("drop", function (event) {
 });
 
 fileInputElement.addEventListener("change", function (event) {
-    if (event.target.files.length > 0) {
-        droppedFile = event.target.files[0];
+    const target = event.target as HTMLInputElement;
+    if (target.files.length > 0) {
+        droppedFile = target.files[0];
         labelElement.className = "uploaded-label";
         labeTextElement.innerText = droppedFile.name;
     }
 });
 
-submitButtonElement.addEventListener("click", function (event) {
+submitButtonElement.addEventListener("click", function (event: any) {
     event.preventDefault();
     console.log(droppedFile);
 });
