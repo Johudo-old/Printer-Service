@@ -1,0 +1,24 @@
+[
+    {
+        "type": "mysql",
+        "host": "localhost",
+        "port": 3306,
+        "database": "printer_service",
+        "username": "root",
+        "password": "qwertyqwerty",
+
+        "entities": [
+            "dist/**/*.entity{ .ts,.js}",
+            "node_modules/nestjs-admin/**/*.entity.js"
+        ],
+
+        "synchronize": false,
+        "logging": true,
+
+        "migrationsTableName": "custom_migration_table",
+        "migrations": ["migration/*.js"],
+        "cli": {
+            "migrationsDir": "migration"
+        }
+    }
+]

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <title>307 Принтер</title>
+
+    <link rel='stylesheet' type='text/css' media='screen' href='styles/normalize.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='styles/start.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='styles/main.css'>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="main-screen">
+        <div class="main-screen__content">
+
+            <div class="main-screen__left-content">
+                <img class="left-content__mai-logo" src="./images/mai.png">
+                <h1 class="left-content__title title">Принтер 307</h1>
+                <p  class="left-content__description">Отправь файл на печать в принтере 307 кафедры прямо сейчас!</p>
+            </div>
+
+            <div id='right-content' class="main-screen__right-content">
+                <h2 class="right-content_part right-content__title title">Отправьте файл</h2>
+
+                <div class="right-content_part right-content__upload-form">
+                    <label for="file-to-print" id="file-to-print-label" class="right-content__upload-file-label button">Выберете файл</label>
+        
+                    <!-- Поле файла (accept настраивает расширения файлов) -->
+                    <input type="file" 
+                        name="file-to-print"
+                        id="file-to-print" 
+                        class="main-screen__file-input"
+                        accept=".pdf">
+                </div>
+
+                <div class="right-content_part">
+                    <button type="submit" id="submit-button" class="button">Отправить на печать</button>
+                </div>
+                
+                <!-- TODO: DELETE this button -->
+                <!--
+                    <button id="show-dir-button" class="main-screen__show-dir-button button">Показать файлы на сервере (ДЕМО)</button>   
+                -->
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src='scripts/main.js'></script>
+
+</body>
+</html>

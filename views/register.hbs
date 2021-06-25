@@ -1,0 +1,28 @@
+<main class="auth-page">
+    <div class="container">
+        <a href="/" class="logo">
+            <img src="/images/mai.svg" alt="МАИ" class="logo__image">
+            <span class="logo__title">Принтер 307</span>
+        </a>
+
+        <div class="user-svg">
+            <img src="/images/user.svg" alt="">
+        </div>
+
+        <h1 class="title">Регистрация</h1>
+
+        <form action="" class="form" id="form">
+            <input type="text" name="username" placeholder="Имя пользователя" class="text-input">
+            <input type="text" name="firstName" placeholder="Имя" class="text-input">
+            <input type="text" name="lastName" placeholder="Фамилия" class="text-input">
+            <input type="password" name="password" placeholder="Пароль" class="text-input">
+            <input type="password" name="rePassword" placeholder="Повторите пароль" class="text-input">
+            <button type="submit" class="main-button button" id="submit-button">Зарегистрироваться</button>
+            <a href="/login" class="transparent-button button">У меня есть аккаунт</a>
+        </form>
+    </div>
+</main>
+
+<div id="notification" class="notification-block"></div>
+
+<script async src="/scripts/register.js"></script>

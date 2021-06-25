@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="table-page">
+        <header class="header">
+            <a href="/" class="logo">
+                <img src="/images/mai.svg" alt="МАИ" class="logo__image">
+                <span class="logo__title">Принтер 307</span>
+            </a>
+
+            <div class="header__right-block">
+                <div class="user-svg">
+                    <img src="/images/user.svg" alt="">
+                </div>
+
+                <h1 class="title">{{user.lastName}} {{user.firstName}}</h1>
+            </div>
+        </header>
+
+        <main class="table-block">
+            <form action="" class="file-form" id="file-form">
+                {{!-- <label for="file-input" class="uploaded-label" id="file-input-label"> --}}
+                    <label for="file-input" class="" id="file-input-label">
+                        <img src="/images/download.png" alt="">
+                        <span>Выберите файл в формате pdf</span>
+                        <button type="submit" class="main-button button">Отправить</button>
+                    </label>
+                    <input type="file" name="file" id="file-input" class="file-input" accept=".pdf">
+            </form>
+
+            <h2 class="title">Мои файлы:</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Название файла</th>
+                        <th>Дата</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each orders}}
+                    <tr>
+                        <td>{{this.id}}</td>
+                        <td>{{this.name}}</td>
+                        <td>{{this.date}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </main>
+    </div>
+</div>
+
+<script async src="./scripts/fileInput.js"></script>
