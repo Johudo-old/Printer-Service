@@ -6,7 +6,7 @@ import {
     DefaultAdminSite,
     AdminUserEntity,
 } from "nestjs-admin";
-import { User } from "src/users/user.entity";
+import { User } from "src/common/entities/user.entity";
 import { adminCredentialValidator } from "./credentialValidator";
 
 const CoreModule = AdminCoreModuleFactory.createAdminCoreModule({});

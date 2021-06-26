@@ -2,7 +2,7 @@ import {
     AdminEntity /*, DefaultAdminSite, PasswordWidget */,
 } from "nestjs-admin";
 // import { Request, Response } from "express";
-import { User } from "./user.entity";
+import { User } from "../common/entities/user.entity";
 import { Injectable } from "@nestjs/common";
 // import { Connection, Repository } from "typeorm";
 // import { InjectRepository } from "@nestjs/typeorm";

@@ -1,4 +1,4 @@
-import { User } from "../users/user.entity";
+import { User } from "../common/entities/user.entity";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 

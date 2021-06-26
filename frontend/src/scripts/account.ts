@@ -1,12 +1,12 @@
-var formElement = document.getElementById("file-form");
-var fileInputElement = document.getElementById("file-input");
-var labelElement = document.getElementById("file-input-label");
-var labeTextElement = labelElement.getElementsByTagName("span")[0];
-var submitButtonElement = labelElement.getElementsByTagName("button")[0];
+const formElement = document.getElementById("file-form");
+const fileInputElement = document.getElementById("file-input");
+const labelElement = document.getElementById("file-input-label");
+const labeTextElement = labelElement.getElementsByTagName("span")[0];
+const submitButtonElement = labelElement.getElementsByTagName("button")[0];
 
-var droppedFile: File;
+let droppedFile: File;
 
-var acceptedFileTypes = ["application/pdf"];
+const acceptedFileTypes = ["application/pdf"];
 
 [
     "drag",
@@ -41,14 +41,13 @@ labelElement.addEventListener("drop", function (event) {
     );
 
     // Есть ли файл
-    var currentDroppedFile = event.dataTransfer.files[0];
-
+    const currentDroppedFile = event.dataTransfer.files[0];
     if (!currentDroppedFile) return;
 
     // Разрешен ли тип файла
-    var isAcceptedType = false;
+    let isAcceptedType = false;
 
-    for (var i = 0; i < acceptedFileTypes.length; i++) {
+    for (let i = 0; i < acceptedFileTypes.length; i++) {
         if (currentDroppedFile.type === acceptedFileTypes[i]) {
             isAcceptedType = true;
             break;

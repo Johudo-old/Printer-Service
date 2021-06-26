@@ -12,6 +12,10 @@
                 </div>
 
                 <h1 class="title">{{user.lastName}} {{user.firstName}}</h1>
+
+                <a class="logout-svg" href="/auth/logout">
+                    <img src="/images/logout.svg" alt="">
+                </a>
             </div>
         </header>
 
@@ -20,7 +24,7 @@
                 {{!-- <label for="file-input" class="uploaded-label" id="file-input-label"> --}}
                     <label for="file-input" class="" id="file-input-label">
                         <img src="/images/download.png" alt="">
-                        <span>Выберите файл в формате pdf</span>
+                        <span>Выберите файл в формате PDF</span>
                         <button type="submit" class="main-button button">Отправить</button>
                     </label>
                     <input type="file" name="file" id="file-input" class="file-input" accept=".pdf">
@@ -50,4 +54,4 @@
     </div>
 </div>
 
-<script async src="./scripts/fileInput.js"></script>
+<script async src="./account.js"></script>

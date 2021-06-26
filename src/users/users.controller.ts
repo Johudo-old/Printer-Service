@@ -10,7 +10,7 @@ import {
 } from "@nestjs/common";
 import { FindByIdParams } from "src/utils/findByIdParams";
 import { CreateUserDto } from "./dto/create-user.dto";
-import { User } from "./user.entity";
+import { User } from "../common/entities/user.entity";
 import { UsersService } from "./users.service";
 
 @Controller("api/users")

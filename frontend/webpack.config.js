@@ -18,6 +18,8 @@ module.exports = {
     entry: {
         "main-css": "./src/styles/main.scss",
         register: "./src/scripts/register.ts",
+        login: "./src/scripts/login.ts",
+        account: "./src/scripts/account.ts",
     },
 
     output: {
