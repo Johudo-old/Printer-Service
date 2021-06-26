@@ -9,28 +9,35 @@ import {
 import { AppService } from "./app.service";
 import { AuthExceptionFilter } from "./common/filters/auth-exceptions.filter";
 import { AuthenticatedGuard } from "./common/guards/authenticated.guard";
+import { OrdersService } from "./orders/orders.service";
+import { UsersService } from "./users/users.service";
 
 @Controller()
 @UseFilters(AuthExceptionFilter)
 export class AppController {
-    constructor(private readonly appService: AppService) {}
+    constructor(
+        private readonly appService: AppService,
+        private readonly orderService: OrdersService,
+        private readonly userService: UsersService,
+    ) {}
 
     @UseGuards(AuthenticatedGuard)
     @Get("/")
     @Render("account")
-    account(@Request() req) {
+    async account(@Request() req) {
+        const user = await this.userService.getUserById(req.user.id);
+        let orders: any = await this.orderService.getOrdersByUserId(user);
+
+        orders = orders.map((order) => {
+            return {
+                ...order,
+                createDate: order.createDate.toLocaleString("ru-RU"),
+            };
+        });
+
         return {
             user: req.user,
-            orders: [
-                { id: 1, name: "Курсовая Зуев МСИC", date: "12.04.2020 13:30" },
-                { id: 2, name: "Курсовая Зуев МСИC", date: "12.04.2020 13:30" },
-                { id: 3, name: "Курсовая Зуев МСИC", date: "12.04.2020 13:30" },
-                { id: 3, name: "Курсовая Зуев МСИC", date: "12.04.2020 13:30" },
-                { id: 4, name: "Курсовая Зуев МСИC", date: "12.04.2020 13:30" },
-                { id: 5, name: "Курсовая Зуев МСИC", date: "12.04.2020 13:30" },
-                { id: 6, name: "Курсовая Зуев МСИC", date: "12.04.2020 13:30" },
-                { id: 7, name: "Курсовая Зуев МСИC", date: "12.04.2020 13:30" },
-            ],
+            orders: orders,
         };
     }
 

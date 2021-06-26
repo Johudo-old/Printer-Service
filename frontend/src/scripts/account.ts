@@ -1,3 +1,6 @@
+import { createOrderRequest } from "./api/ordersApi";
+import { showNotification } from "./lib";
+
 const formElement = document.getElementById("file-form");
 const fileInputElement = document.getElementById("file-input");
 const labelElement = document.getElementById("file-input-label");
@@ -74,5 +77,31 @@ fileInputElement.addEventListener("change", function (event) {
 
 submitButtonElement.addEventListener("click", function (event: any) {
     event.preventDefault();
-    console.log(droppedFile);
+
+    const fd = new FormData();
+    fd.append("file", droppedFile);
+
+    createOrderRequest(
+        fd,
+        (res) => {
+            if (res.status === 201) {
+                location.reload();
+                return;
+            }
+
+            console.log(res);
+            showNotification("Непредвиденная ошибка!", "error");
+        },
+        (err) => {
+            if (err.response.status === 403) {
+                showNotification(
+                    "Ошибка: необходимо перезагрузить страницу и авторизироваться снова!",
+                    "error",
+                );
+                return;
+            }
+
+            console.log(err.response);
+        },
+    );
 });

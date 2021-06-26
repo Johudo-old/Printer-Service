@@ -102,8 +102,8 @@ import * as myLib from "./lib";
         api.createUserRequest(
             { username, firstName, lastName, password },
             (resposnse) => {
-                if (resposnse.status === 201) location.reload();
-                console.log(resposnse);
+                if (resposnse.status === 201)
+                    window.location.pathname = "/login";
             },
             (error) => {
                 if (

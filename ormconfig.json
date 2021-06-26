@@ -15,8 +15,8 @@
         "synchronize": false,
         "logging": true,
 
-        "migrationsTableName": "custom_migration_table",
-        "migrations": ["migration/*.js"],
+        "migrationsTableName": "migrations_typeorm",
+        "migrations": ["dist/migration/*.js"],
         "cli": {
             "migrationsDir": "migration"
         }

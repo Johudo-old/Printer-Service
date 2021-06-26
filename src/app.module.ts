@@ -5,13 +5,14 @@ import { AppService } from "./app.service";
 import { Connection } from "typeorm";
 import { UsersModule } from "./users/users.module";
 import { BackofficeModule } from "./backoffice/backoffice.module";
-import { AuthService } from "./auth/auth.service";
 import { AuthModule } from "./auth/auth.module";
+import { OrdersModule } from "./orders/orders.module";
 
 @Module({
     imports: [
         TypeOrmModule.forRoot(),
         UsersModule,
+        OrdersModule,
         BackofficeModule,
         AuthModule,
     ],
