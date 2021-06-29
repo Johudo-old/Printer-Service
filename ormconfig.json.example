@@ -1,0 +1,21 @@
+{
+    "type": "postgres",
+    "host": ,
+    "port": ,
+    "database": ,
+    "username": ,
+    "password": ,
+    "entities": [
+        "dist/**/*.entity{ .ts,.js}",
+        "node_modules/nestjs-admin/**/*.entity.js",
+    ],
+    "synchronize": false,
+    "logging": true,
+    "migrationsTableName": "migrations",
+    "migrations": [
+        "dist/migration/*.js"
+    ],
+    "cli": {
+        "migrationsDir": "migration",
+    },
+}
