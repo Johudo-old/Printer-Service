@@ -11,12 +11,36 @@ import { UserAdminResourceOption } from "./common/entities/user.entity";
 import { Database, Resource } from "@admin-bro/typeorm";
 import AdminBro from "admin-bro";
 import { OrderAdminResourceOption } from "./common/entities/order.entity";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 AdminBro.registerAdapter({ Database, Resource });
 
 @Module({
     imports: [
-        TypeOrmModule.forRoot(),
+        TypeOrmModule.forRoot({
+            type: "postgres",
+            host: process.env.DB_HOST,
+            port: Number(process.env.DB_PORT),
+            database: process.env.DB_DATABASE,
+            username: process.env.DB_USERNAME,
+            password: process.env.DB_PASSWORD,
+
+            entities: [
+                "dist/**/*.entity{ .ts,.js}",
+                "node_modules/nestjs-admin/**/*.entity.js",
+            ],
+
+            synchronize: false,
+            logging: true,
+
+            migrationsTableName: "migrations",
+            migrations: ["dist/migration/*.js"],
+            cli: {
+                migrationsDir: "migration",
+            },
+        }),
         UsersModule,
         OrdersModule,
         AuthModule,
