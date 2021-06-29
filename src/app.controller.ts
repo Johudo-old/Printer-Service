@@ -44,12 +44,17 @@ export class AppController {
     @Get("/login")
     @Render("login")
     login() {
-        return {};
+        return null;
     }
 
     @Get("/register")
     @Render("register")
     register() {
-        return {};
+        return null;
+    }
+
+    @Get("/admin")
+    admin() {
+        console.log("\nTEST\n\n");
     }
 }

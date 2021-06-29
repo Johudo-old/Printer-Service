@@ -1,8 +1,14 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+    BaseEntity,
+    Column,
+    Entity,
+    OneToMany,
+    PrimaryGeneratedColumn,
+} from "typeorm";
 import { Order } from "./order.entity";
 
 @Entity()
-export class User {
+export class User extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -27,3 +33,14 @@ export class User {
     @OneToMany(() => Order, (order) => order.user)
     public orders: Order[];
 }
+
+export const UserAdminResourceOption = {
+    resource: User,
+    options: {
+        properties: {
+            password: {
+                isVisible: false,
+            },
+        },
+    },
+};

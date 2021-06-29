@@ -1,8 +1,15 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+    BaseEntity,
+    Column,
+    Entity,
+    ManyToOne,
+    PrimaryGeneratedColumn,
+    RelationId,
+} from "typeorm";
 import { User } from "./user.entity";
 
 @Entity()
-export class Order {
+export class Order extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -17,4 +24,11 @@ export class Order {
 
     @ManyToOne(() => User, (user) => user.orders)
     user: User;
+
+    @RelationId((order: Order) => order.user)
+    userId: number;
 }
+
+export const OrderAdminResourceOption = {
+    resource: Order,
+};

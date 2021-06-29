@@ -298,6 +298,14 @@ table {
         margin: 0;
         padding: 0;
         border: 0;
+
+        a {
+            transition: 0.3s;
+
+            &:hover {
+                color: #1c00ec;
+            }
+        }
     }
 }
 

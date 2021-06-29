@@ -4,7 +4,7 @@ import * as dotenv from "dotenv";
 import { ValidationPipe } from "@nestjs/common";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { join } from "path";
-
+import * as hbs from "hbs";
 import * as session from "express-session";
 import flash = require("connect-flash");
 import * as passport from "passport";
@@ -19,6 +19,8 @@ async function bootstrap() {
     app.useStaticAssets(join(__dirname, "..", "..", "static"));
     app.setBaseViewsDir(join(__dirname, "..", "..", "views"));
     app.setViewEngine("hbs");
+
+    hbs.registerPartials(join(__dirname, "..", "..", "views", "components"));
 
     app.use(
         session({
