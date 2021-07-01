@@ -14,11 +14,20 @@ import { Order } from "src/common/entities/order.entity";
 import { OrdersService } from "./orders.service";
 import { diskStorage } from "multer";
 import { editFileName, pdfFileFilter } from "src/utils/fileUpload.util";
+import { PrinterWorker } from "src/utils/PrinterWorker.util";
 import { AuthenticatedGuard } from "src/common/guards/authenticated.guard";
+import { join } from "path";
+import {
+    baseFolder,
+    filesFolder,
+} from "src/common/constants/folderConstants.const";
 
 @Controller("api/orders")
 export class OrdersController {
-    constructor(private readonly orderService: OrdersService) {}
+    constructor(
+        private readonly orderService: OrdersService,
+        private readonly printerWorker: PrinterWorker,
+    ) {}
 
     // @Get()
     // @HttpCode(HttpStatus.OK)
@@ -32,16 +41,17 @@ export class OrdersController {
     @UseInterceptors(
         FileInterceptor("file", {
             storage: diskStorage({
-                destination: "./media/uploaded-files",
+                destination: filesFolder,
                 filename: editFileName,
             }),
             fileFilter: pdfFileFilter,
         }),
     )
     createOrder(@UploadedFile() file, @Request() req) {
-        console.log(file);
-        console.log(req.user);
+        // console.log(file);
+        // console.log(req.user);
         this.orderService.createOrder(file, req.user);
+        this.printerWorker.printFile(file.path);
         return {};
     }
 

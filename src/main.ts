@@ -8,6 +8,10 @@ import * as hbs from "hbs";
 import * as session from "express-session";
 import flash = require("connect-flash");
 import * as passport from "passport";
+import {
+    staticFolder,
+    viewFolder,
+} from "./common/constants/folderConstants.const";
 
 dotenv.config();
 
@@ -16,11 +20,11 @@ async function bootstrap() {
 
     app.useGlobalPipes(new ValidationPipe());
 
-    app.useStaticAssets(join(__dirname, "..", "..", "static"));
-    app.setBaseViewsDir(join(__dirname, "..", "..", "views"));
+    app.useStaticAssets(staticFolder);
+    app.setBaseViewsDir(viewFolder);
     app.setViewEngine("hbs");
 
-    hbs.registerPartials(join(__dirname, "..", "..", "views", "components"));
+    hbs.registerPartials(join(viewFolder, "components"));
 
     app.use(
         session({
