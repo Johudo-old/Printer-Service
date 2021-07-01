@@ -14,7 +14,7 @@ import { Order } from "src/common/entities/order.entity";
 import { OrdersService } from "./orders.service";
 import { diskStorage } from "multer";
 import { editFileName, pdfFileFilter } from "src/utils/fileUpload.util";
-import { PrinterWorker } from "src/utils/PrinterWorker.util";
+import { PrinterWorker } from "src/utils/printerWorker.util";
 import { AuthenticatedGuard } from "src/common/guards/authenticated.guard";
 import { join } from "path";
 import {
