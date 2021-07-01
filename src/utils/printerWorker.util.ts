@@ -7,7 +7,8 @@ export class PrinterWorker {
 
     async printFile(filePath: string) {
         try {
-            exec("lp -d cowork " + join(baseFolder, filePath));
+            console.log("lp -d cowork " + filePath);
+            exec("lp -d cowork " + filePath);
         } catch (e) {
             console.log("Failed to print file", e);
         }
