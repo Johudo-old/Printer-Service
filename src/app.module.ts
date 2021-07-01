@@ -12,6 +12,7 @@ import { Database, Resource } from "@admin-bro/typeorm";
 import AdminBro from "admin-bro";
 import { OrderAdminResourceOption } from "./common/entities/order.entity";
 import * as dotenv from "dotenv";
+import { AuthenticatedGuard } from "./common/guards/authenticated.guard";
 
 dotenv.config();
 

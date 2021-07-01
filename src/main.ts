@@ -12,6 +12,7 @@ import {
     staticFolder,
     viewFolder,
 } from "./common/constants/folderConstants.const";
+import { NotFoundFilter } from "./common/filters/notFound-exceptions.filter";
 
 dotenv.config();
 
@@ -23,6 +24,8 @@ async function bootstrap() {
     app.useStaticAssets(staticFolder);
     app.setBaseViewsDir(viewFolder);
     app.setViewEngine("hbs");
+
+    app.useGlobalFilters(new NotFoundFilter());
 
     hbs.registerPartials(join(viewFolder, "components"));
 

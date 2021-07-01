@@ -8,7 +8,9 @@ import {
 } from "@nestjs/common";
 import { AppService } from "./app.service";
 import { AuthExceptionFilter } from "./common/filters/auth-exceptions.filter";
+import { NotFoundFilter } from "./common/filters/notFound-exceptions.filter";
 import { AuthenticatedGuard } from "./common/guards/authenticated.guard";
+import { IsNotAuthenticatedGuard } from "./common/guards/inNotAuthenticated.guard";
 import { OrdersService } from "./orders/orders.service";
 import { UsersService } from "./users/users.service";
 
@@ -41,12 +43,14 @@ export class AppController {
         };
     }
 
+    @UseGuards(IsNotAuthenticatedGuard)
     @Get("/login")
     @Render("login")
     login() {
         return null;
     }
 
+    @UseGuards(IsNotAuthenticatedGuard)
     @Get("/register")
     @Render("register")
     register() {

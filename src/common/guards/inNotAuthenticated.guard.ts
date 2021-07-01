@@ -2,16 +2,16 @@ import {
     ExecutionContext,
     Injectable,
     CanActivate,
-    ForbiddenException,
+    NotFoundException,
 } from "@nestjs/common";
 
 @Injectable()
-export class AuthenticatedGuard implements CanActivate {
+export class IsNotAuthenticatedGuard implements CanActivate {
     async canActivate(context: ExecutionContext) {
         const request = context.switchToHttp().getRequest();
 
-        if (!request.isAuthenticated()) throw new ForbiddenException();
+        if (request.isAuthenticated()) throw new NotFoundException();
 
-        return request.isAuthenticated();
+        return true;
     }
 }
