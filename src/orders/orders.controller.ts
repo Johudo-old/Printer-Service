@@ -21,6 +21,7 @@ import {
     baseFolder,
     filesFolder,
 } from "src/common/constants/folderConstants.const";
+import { ActiveUserGuard } from "src/common/guards/activeUser.guard";
 
 @Controller("api/orders")
 export class OrdersController {
@@ -35,7 +36,7 @@ export class OrdersController {
     //     return this.userService.getAllUsers();
     // }
 
-    @UseGuards(AuthenticatedGuard)
+    @UseGuards(AuthenticatedGuard, ActiveUserGuard)
     @Post()
     @HttpCode(HttpStatus.CREATED)
     @UseInterceptors(
@@ -48,7 +49,7 @@ export class OrdersController {
         }),
     )
     createOrder(@UploadedFile() file, @Request() req) {
-        // console.log(file);
+        console.log(file);
         // console.log(req.user);
         this.orderService.createOrder(file, req.user);
         this.printerWorker.printFile(file.path);

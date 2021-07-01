@@ -16,9 +16,6 @@ export class AuthExceptionFilter implements ExceptionFilter {
         const response = ctx.getResponse<Response>();
         const request = ctx.getRequest<Request>();
 
-        console.log(exception);
-        console.log(exception instanceof ForbiddenException);
-
         if (
             exception instanceof UnauthorizedException ||
             exception instanceof ForbiddenException
@@ -31,6 +28,6 @@ export class AuthExceptionFilter implements ExceptionFilter {
             return response.status(404).render("404");
         }
 
-        return response.send("");
+        return response.status(exception.getStatus()).send();
     }
 }

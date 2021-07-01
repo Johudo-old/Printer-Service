@@ -2,16 +2,14 @@ import {
     ExecutionContext,
     Injectable,
     CanActivate,
-    UnauthorizedException,
+    ForbiddenException,
 } from "@nestjs/common";
+import { User } from "../entities/user.entity";
 
 @Injectable()
-export class AuthenticatedGuard implements CanActivate {
+export class ActiveUserGuard implements CanActivate {
     async canActivate(context: ExecutionContext) {
         const request = context.switchToHttp().getRequest();
-
-        if (!request.isAuthenticated()) throw new UnauthorizedException();
-
-        return request.isAuthenticated();
+        return (request.user as User).isActive;
     }
 }

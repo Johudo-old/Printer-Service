@@ -93,9 +93,17 @@ submitButtonElement.addEventListener("click", function (event: any) {
             showNotification("Непредвиденная ошибка!", "error");
         },
         (err) => {
-            if (err.response.status === 403) {
+            if (err.response.status === 401) {
                 showNotification(
                     "Ошибка: необходимо перезагрузить страницу и авторизироваться снова!",
+                    "error",
+                );
+                return;
+            }
+
+            if (err.response.status === 403) {
+                showNotification(
+                    "Ошибка: у вас нет прав на печать! Подойдите к Андрею Горелову.",
                     "error",
                 );
                 return;
