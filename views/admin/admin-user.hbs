@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="table-page">
+        <header class="header">
+            {{> logo }}
+
+            <div class="header__right-block">
+                <h1 class="title">Админ панель</h1>
+
+                <a class="logout-svg" href="/auth/logout">
+                    <img src="/images/logout.svg" alt="">
+                </a>
+            </div>
+        </header>
+
+        <main class="table-block">
+            <a href="/admin/users">Назад</a>
+            <h2 class="title">Пользователь <b>{{user.username}}</b></h2>
+
+            <form id="form">
+                <div class="input-block__text__with-label">
+                    <label for="username">Имя пользователя</label>
+                    <input type="text" id="username" value="{{user.username}}">
+                </div>
+                <div class="input-block__text__with-label">
+                    <label for="lastName">Фамилия</label>
+                    <input type="text" id="lastName" value="{{user.lastName}}">
+                </div>
+                <div class="input-block__text__with-label">
+                    <label for="firstName">Имя</label>
+                    <input type="text" id="firstName" value="{{user.firstName}}">
+                </div>
+                <div class="input-block__checkbox__with-label">
+                    <label for="isActive">Активный</label>
+                    <input type="checkbox" id="isActive" {{#if user.isActive}}checked{{/if}}>
+                </div>
+                <div class="input-block__checkbox__with-label">
+                    <label for="isAdmin">Админ</label>
+                    <input type="checkbox" id="isAdmin" {{#if user.isAdmin}}checked{{/if}}>
+                </div>
+
+                <div class="buttons-block">
+                    <button type="button" class="green-button" id="update-button">Обновить</button>
+                    <button type="button" class="red-button" id="delete-button">Удалить</button>
+                </div>
+            </form>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Название файла</th>
+                        <th>Дата</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each user.orders}}
+                    <tr>
+                        <td>{{this.id}}</td>
+                        <td>{{this.originalName}}</td>
+                        <td>{{this.createDate}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </main>
+    </div>
+</div>
+
+<script async src="/admin-user.js"></script>

@@ -44,7 +44,9 @@
                     {{#each orders}}
                     <tr>
                         <td>{{this.id}}</td>
-                        <td>{{this.originalName}}</td>
+                        <td>
+                            <a href="/api/orders/{{this.id}}/download">{{this.originalName}}</a>
+                        </td>
                         <td>{{this.createDate}}</td>
                     </tr>
                     {{/each}}
@@ -54,4 +56,4 @@
     </div>
 </div>
 
-<script async src="./account.js"></script>
+<script async src="/account.js"></script>

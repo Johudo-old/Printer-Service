@@ -22,17 +22,11 @@
         "typeorm:migration:run": "npx typeorm migration:run"
     },
     "dependencies": {
-        "@admin-bro/express": "^3.1.0",
-        "@admin-bro/nestjs": "^1.1.0",
-        "@admin-bro/typeorm": "^1.4.0",
         "@nestjs/common": "^7.6.15",
         "@nestjs/core": "^7.6.15",
         "@nestjs/passport": "^7.1.5",
         "@nestjs/platform-express": "^7.6.18",
         "@nestjs/typeorm": "^7.1.5",
-        "admin-bro": "^4.0.1",
-        "admin-bro-expressjs": "^2.1.1",
-        "admin-bro-typeorm": "^0.1.6-alpha.9",
         "class-transformer": "^0.4.0",
         "class-validator": "^0.13.1",
         "connect-flash": "^0.1.1",

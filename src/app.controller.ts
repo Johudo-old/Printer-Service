@@ -28,14 +28,7 @@ export class AppController {
     @Render("account")
     async account(@Request() req) {
         const user = await this.userService.getUserById(req.user.id);
-        let orders: any = await this.orderService.getOrdersByUserId(user);
-
-        orders = orders.map((order) => {
-            return {
-                ...order,
-                createDate: order.createDate.toLocaleString("ru-RU"),
-            };
-        });
+        let orders: any = await this.orderService.getOrdersByUserId(user, true);
 
         return {
             user: req.user,
@@ -55,10 +48,5 @@ export class AppController {
     @Render("register")
     register() {
         return null;
-    }
-
-    @Get("/admin")
-    admin() {
-        console.log("\nTEST\n\n");
     }
 }

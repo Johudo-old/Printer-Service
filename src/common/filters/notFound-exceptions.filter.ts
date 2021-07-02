@@ -9,13 +9,22 @@ import { Response } from "express";
 
 @Catch()
 export class NotFoundFilter implements ExceptionFilter {
-    catch(exception: HttpException, host: ArgumentsHost) {
+    catch(exception: HttpException | any, host: ArgumentsHost) {
         let response = host.switchToHttp().getResponse<Response>();
 
-        if (exception instanceof NotFoundException) {
+        if (
+            exception instanceof NotFoundException ||
+            (exception instanceof Object && exception.status === 404) ||
+            exception.statusCode === 404
+        ) {
             return response.status(404).render("404");
         }
 
-        return response.status(exception.getStatus()).send();
+        const status =
+            exception.getStatus instanceof Function
+                ? exception.getStatus()
+                : exception.status | exception.statusCode | 404;
+
+        return response.status(status).send();
     }
 }

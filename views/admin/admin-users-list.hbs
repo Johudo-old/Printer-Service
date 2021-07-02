@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="table-page">
+        <header class="header">
+            {{> logo }}
+
+            <div class="header__right-block">
+                <h1 class="title">Админ панель</h1>
+
+                <a class="logout-svg" href="/auth/logout">
+                    <img src="/images/logout.svg" alt="">
+                </a>
+            </div>
+        </header>
+
+        <main class="table-block">
+            <a href="/admin">Назад</a>
+            <h2 class="title">Пользователи:</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Имя пользователя</th>
+                        <th>Фамилия</th>
+                        <th>Имя</th>
+                        <th>Активный</th>
+                        <th>Админ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each users}}
+                    <tr>
+                        <td>{{this.id}}</td>
+                        <td><a href="/admin/users/{{this.id}}">{{this.username}}</a></td>
+                        <td>{{this.lastName}}</td>
+                        <td>{{this.firstName}}</td>
+                        <td>
+                            <input type="checkbox" name="" id="" {{#if this.isActive}}checked{{/if}} disabled>
+                        </td>
+                        <td>
+                            <input type="checkbox" name="" id="" {{#if this.isAdmin}}checked{{/if}} disabled>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </main>
+    </div>
+</div>

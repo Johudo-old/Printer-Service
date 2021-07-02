@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="table-page">
+        <header class="header">
+            {{> logo }}
+
+            <div class="header__right-block">
+                <h1 class="title">Админ панель</h1>
+
+                <a class="logout-svg" href="/auth/logout">
+                    <img src="/images/logout.svg" alt="">
+                </a>
+            </div>
+        </header>
+
+        <main class="table-block">
+            <h2 class="title">Таблицы:</h2>
+
+            {{#each tables}}
+            <a href="{{this.url}}">{{this.name}}</a>
+            {{/each}}
+        </main>
+    </div>
+</div>

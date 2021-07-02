@@ -20,6 +20,7 @@ module.exports = {
         register: "./src/scripts/register.ts",
         login: "./src/scripts/login.ts",
         account: "./src/scripts/account.ts",
+        "admin-user": "./src/scripts/admin-user.ts",
     },
 
     output: {

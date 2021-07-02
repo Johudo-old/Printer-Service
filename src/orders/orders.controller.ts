@@ -1,27 +1,27 @@
 import {
-    Body,
     Controller,
+    Get,
     HttpCode,
     HttpStatus,
+    NotFoundException,
+    Param,
     Post,
     Request,
+    Res,
     UploadedFile,
     UseGuards,
     UseInterceptors,
 } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { Order } from "src/common/entities/order.entity";
 import { OrdersService } from "./orders.service";
 import { diskStorage } from "multer";
 import { editFileName, pdfFileFilter } from "src/utils/fileUpload.util";
 import { PrinterWorker } from "src/utils/printerWorker.util";
 import { AuthenticatedGuard } from "src/common/guards/authenticated.guard";
-import { join } from "path";
-import {
-    baseFolder,
-    filesFolder,
-} from "src/common/constants/folderConstants.const";
+import { filesFolder } from "src/common/constants/folderConstants.const";
 import { ActiveUserGuard } from "src/common/guards/activeUser.guard";
+import { FindByIdParams } from "src/utils/findByIdParams";
+import { Response } from "express";
 
 @Controller("api/orders")
 export class OrdersController {
@@ -56,9 +56,22 @@ export class OrdersController {
         return {};
     }
 
-    // @Get(":id")
-    // @HttpCode(HttpStatus.OK)
-    // findOne(@Param() { id }: FindByIdParams): Promise<User> {
-    //     return this.userService.getUserById(Number(id));
-    // }
+    @Get(":id/download")
+    @HttpCode(HttpStatus.OK)
+    async downloadFile(
+        @Res() res: Response,
+        @Param() { id }: FindByIdParams,
+    ): Promise<void> {
+        if (isNaN(Number(id))) return;
+        const order = await this.orderService.getOrderById(Number(id));
+        if (!order) throw new NotFoundException();
+
+        try {
+            res.download(order.path, order.originalName);
+        } catch {
+            throw new NotFoundException();
+        }
+
+        return;
+    }
 }

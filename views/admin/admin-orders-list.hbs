@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="table-page">
+        <header class="header">
+            {{> logo }}
+
+            <div class="header__right-block">
+                <h1 class="title">Админ панель</h1>
+
+                <a class="logout-svg" href="/auth/logout">
+                    <img src="/images/logout.svg" alt="">
+                </a>
+            </div>
+        </header>
+
+        <main class="table-block">
+            <a href="/admin">Назад</a>
+            <h2 class="title">Заказы:</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Название</th>
+                        <th>Дата</th>
+                        <th>Пользователь</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each orders}}
+                    <tr>
+                        <td>{{this.id}}</td>
+                        <td>
+                            <a href="/api/orders/{{this.id}}/download">{{this.originalName}}</a>
+                        </td>
+                        <td>{{this.createDate}}</td>
+                        <td><a href="/admin/users/{{this.user.id}}">{{this.user.username}}</a></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </main>
+    </div>
+</div>
