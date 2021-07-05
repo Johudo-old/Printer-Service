@@ -1,5 +1,6 @@
 import * as api from "./api/usersApi";
 import * as myLib from "./lib";
+import md5 from "md5";
 
 (() => {
     const submitButtonElement = document.getElementById("submit-button");
@@ -100,7 +101,7 @@ import * as myLib from "./lib";
         });
 
         api.createUserRequest(
-            { username, firstName, lastName, password },
+            { username, firstName, lastName, password: md5(password) },
             (resposnse) => {
                 if (resposnse.status === 201)
                     window.location.pathname = "/login";
@@ -118,6 +119,7 @@ import * as myLib from "./lib";
                     return;
                 }
 
+                myLib.showNotification("Ошибка: неизвестная ошибка!", "error");
                 console.log(error.response);
             },
         );

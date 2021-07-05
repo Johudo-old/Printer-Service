@@ -1,3 +1,4 @@
+import md5 from "md5";
 import { loginRequest } from "./api/authApi";
 import { checkInputErrors, removeClass, showNotification } from "./lib";
 
@@ -37,7 +38,7 @@ import { checkInputErrors, removeClass, showNotification } from "./lib";
             password,
         });
 
-        loginRequest({ username, password }, (res) => {
+        loginRequest({ username, password: md5(password) }, (res) => {
             if (res.status === 200) window.location.pathname = res.data;
             if (res.status === 204)
                 showNotification(
