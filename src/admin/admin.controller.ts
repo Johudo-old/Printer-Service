@@ -4,11 +4,18 @@ import {
     NotFoundException,
     Param,
     Render,
+    UseFilters,
+    UseGuards,
 } from "@nestjs/common";
+import { AuthExceptionFilter } from "src/common/filters/auth-exceptions.filter";
+import { AdminUserGuard } from "src/common/guards/adminUser.guard";
+import { AuthenticatedGuard } from "src/common/guards/authenticated.guard";
 import { OrdersService } from "src/orders/orders.service";
 import { UsersService } from "src/users/users.service";
 
 @Controller("admin")
+@UseFilters(AuthExceptionFilter)
+@UseGuards(AuthenticatedGuard, AdminUserGuard)
 export class AdminController {
     constructor(
         private readonly userService: UsersService,
