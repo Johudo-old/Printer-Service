@@ -19,7 +19,11 @@
         "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
         "test:e2e": "jest --config ./test/jest-e2e.json",
         "typeorm:migration:generate": "npx typeorm migration:generate -n",
-        "typeorm:migration:run": "npx typeorm migration:run"
+        "typeorm:migration:run": "npx typeorm migration:run",
+        "typeorm:migration:revert": "npx typeorm migration:revert",
+        "makemigration": "npm run typeorm:migration:generate",
+        "migrate": "npm run build && npm run typeorm:migration:run",
+        "dropmigration": "npm run typeorm:migration:revert"
     },
     "dependencies": {
         "@nestjs/common": "^7.6.15",

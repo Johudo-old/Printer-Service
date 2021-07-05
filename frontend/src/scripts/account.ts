@@ -1,4 +1,4 @@
-import { createOrderRequest } from "./api/ordersApi";
+import { createFileRequest } from "./api/filesApi";
 import { showNotification } from "./lib";
 
 const formElement = document.getElementById("file-form");
@@ -81,7 +81,7 @@ submitButtonElement.addEventListener("click", function (event: any) {
     const fd = new FormData();
     fd.append("file", droppedFile);
 
-    createOrderRequest(
+    createFileRequest(
         fd,
         (res) => {
             if (res.status === 201) {

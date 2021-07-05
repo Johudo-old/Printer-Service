@@ -30,28 +30,63 @@
                     <input type="file" name="file" id="file-input" class="file-input" accept=".pdf">
             </form>
 
-            <h2 class="title">Мои файлы:</h2>
+            <div>
+                <h2 class="title">Текущие задачи:</h2>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Название файла</th>
-                        <th>Дата</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each orders}}
-                    <tr>
-                        <td>{{this.id}}</td>
-                        <td>
-                            <a href="/api/orders/{{this.id}}/download">{{this.originalName}}</a>
-                        </td>
-                        <td>{{this.createDate}}</td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Название файла</th>
+                            <th>Напечатано страниц</th>
+                            <th>Статус</th>
+                            <th>Дата</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each orders}}
+                        <tr>
+                            <td>{{this.id}}</td>
+                            <td>
+                                <a href="/api/files/{{this.file.id}}/download">{{this.file.originalName}}</a>
+                            </td>
+                            <td>{{this.pagesPrinted}}</td>
+                            <td>{{this.status}}</td>
+                            <td>{{this.createDate}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+
+            <div>
+                <h2 class="title">Мои файлы:</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Название файла</th>
+                            <th>Cтраниц</th>
+                            <th>Дата</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each files}}
+                        <tr>
+                            <td>{{this.id}}</td>
+                            <td>
+                                <a href="/api/files/{{this.id}}/download">{{this.originalName}}</a>
+                            </td>
+                            <td>{{this.pages}}</td>
+                            <td>{{this.createDate}}</td>
+                            <td><button type="button">Напечатать</button></td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
         </main>
     </div>
 </div>

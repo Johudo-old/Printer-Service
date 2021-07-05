@@ -8,6 +8,7 @@ import { AuthModule } from "./auth/auth.module";
 import { OrdersModule } from "./orders/orders.module";
 import * as dotenv from "dotenv";
 import { AdminModule } from "./admin/admin.module";
+import { FilesModule } from "./files/files.module";
 
 dotenv.config();
 
@@ -37,6 +38,7 @@ dotenv.config();
         }),
         UsersModule,
         OrdersModule,
+        FilesModule,
         AuthModule,
         AdminModule,
     ],

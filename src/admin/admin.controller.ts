@@ -41,51 +41,51 @@ export class AdminController {
         };
     }
 
-    @Get("users/:userID")
-    @Render("admin/admin-user")
-    async user(@Param() { userID }) {
-        if (isNaN(Number(userID))) throw new NotFoundException();
+    // @Get("users/:userID")
+    // @Render("admin/admin-user")
+    // async user(@Param() { userID }) {
+    //     if (isNaN(Number(userID))) throw new NotFoundException();
 
-        const user = await this.userService.getUserById(Number(userID));
+    //     const user = await this.userService.getUserById(Number(userID));
 
-        if (!user) throw new NotFoundException();
+    //     if (!user) throw new NotFoundException();
 
-        return {
-            user: {
-                ...user,
-                orders: (
-                    await this.orderService.getOrdersByUserId(user, true)
-                ).reverse(),
-            },
-        };
-    }
+    //     return {
+    //         user: {
+    //             ...user,
+    //             orders: (
+    //                 await this.orderService.getOrdersByUserId(user, true)
+    //             ).reverse(),
+    //         },
+    //     };
+    // }
 
-    @Get("orders")
-    @Render("admin/admin-orders-list")
-    async orderssTable() {
-        console.log(await this.orderService.getAllOrders(true));
+    // @Get("orders")
+    // @Render("admin/admin-orders-list")
+    // async orderssTable() {
+    //     console.log(await this.orderService.getAllOrders(true));
 
-        return {
-            orders: await this.orderService.getAllOrders(true),
-        };
-    }
+    //     return {
+    //         orders: await this.orderService.getAllOrders(true),
+    //     };
+    // }
 
-    @Get("orders/:orderID")
-    @Render("admin/admin-order")
-    async order(@Param() { userID }) {
-        if (isNaN(Number(userID))) throw new NotFoundException();
+    // @Get("orders/:orderID")
+    // @Render("admin/admin-order")
+    // async order(@Param() { userID }) {
+    //     if (isNaN(Number(userID))) throw new NotFoundException();
 
-        const user = await this.userService.getUserById(Number(userID));
+    //     const user = await this.userService.getUserById(Number(userID));
 
-        if (!user) throw new NotFoundException();
+    //     if (!user) throw new NotFoundException();
 
-        return {
-            user: {
-                ...user,
-                orders: (
-                    await this.orderService.getOrdersByUserId(user, true)
-                ).reverse(),
-            },
-        };
-    }
+    //     return {
+    //         user: {
+    //             ...user,
+    //             orders: (
+    //                 await this.orderService.getOrdersByUserId(user, true)
+    //             ).reverse(),
+    //         },
+    //     };
+    // }
 }

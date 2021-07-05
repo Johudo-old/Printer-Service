@@ -6,6 +6,7 @@ import {
     PrimaryGeneratedColumn,
 } from "typeorm";
 import { Order } from "./order.entity";
+import { File } from "./file.entity";
 
 @Entity()
 export class User extends BaseEntity {
@@ -30,8 +31,14 @@ export class User extends BaseEntity {
     @Column({ type: "boolean", default: false })
     isAdmin: boolean;
 
+    @Column({ type: "varchar", default: "", nullable: true })
+    comment: boolean;
+
     @OneToMany(() => Order, (order) => order.user)
     public orders: Order[];
+
+    @OneToMany(() => File, (file) => file.user)
+    public files: Order[];
 }
 
 export const UserAdminResourceOption = {
