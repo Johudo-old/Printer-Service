@@ -68,3 +68,9 @@ sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/printer.30
 sudo ln -s /etc/nginx/sites-available/printer.307 /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl restart nginx
+
+# Adding admin 
+# sudo -u postgres psql
+# \\c printer
+# update "user" set "isAdmin"=true where id=1;
+# \\q
