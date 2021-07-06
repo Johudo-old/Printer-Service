@@ -6,8 +6,7 @@
     "username": ,
     "password": ,
     "entities": [
-        "dist/**/*.entity{ .ts,.js}",
-        "node_modules/nestjs-admin/**/*.entity.js",
+        "dist/**/*.entity{ .ts,.js}"
     ],
     "synchronize": false,
     "logging": true,
@@ -16,6 +15,6 @@
         "dist/migration/*.js"
     ],
     "cli": {
-        "migrationsDir": "migration",
-    },
+        "migrationsDir": "migration"
+    }
 }
