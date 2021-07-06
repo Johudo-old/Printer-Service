@@ -19,7 +19,8 @@ create user printeruser with encrypted password 'printer307kaf';
 grant all privileges on database printer to printeruser;
 \\c printer;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-exit
+# exit
+\\q
 
 
 # ----------------------------
@@ -31,15 +32,18 @@ sudo apt-get install -y nodejs npm
 sudo npm install pm2@latest -g
 sudo npm i -g @nestjs/cli
 
-# Build backend
+# Install Packages
 npm install
-npx typeorm migration:generate -n "InitDatabase"
-npm run build
-npx typeorm migration:run
+cd ./frontend
+npm install
+cd ..
+
+# Build backend
+npm run makemigration -- "InitDatabase"
+npm run migrate
 
 # Build frontend
 cd ./frontend
-npm install
 npm run build
 
 cd ..
