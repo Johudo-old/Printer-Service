@@ -1,6 +1,6 @@
 const path = require("path");
 
-const DEV_SERVER_PORT = 3001;
+const DEV_SERVER_PORT = 3000;
 const IS_PRODUCTION = (process.env.NODE_ENV || "").trim() === "production";
 const SRC_FOLDER = path.resolve(__dirname, "src");
 const ASSETS_FOLDER = path.resolve(__dirname, "assets");

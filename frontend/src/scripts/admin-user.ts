@@ -105,23 +105,23 @@ import * as myLib from "./lib";
         );
     });
 
-    deleteButtonElement.addEventListener("click", function (event) {
-        event.preventDefault();
+    // deleteButtonElement.addEventListener("click", function (event) {
+    //     event.preventDefault();
 
-        const username = usernameInputElement.value;
-        const firstName = firstNameInputElement.value;
-        const lastName = lastNameInputElement.value;
-        const isActive = Boolean(isActiveInputElement.checked);
-        const isAdmin = Boolean(isAdminInputElement.checked);
+    //     const username = usernameInputElement.value;
+    //     const firstName = firstNameInputElement.value;
+    //     const lastName = lastNameInputElement.value;
+    //     const isActive = Boolean(isActiveInputElement.checked);
+    //     const isAdmin = Boolean(isAdminInputElement.checked);
 
-        console.log({
-            username,
-            firstName,
-            lastName,
-            isActive,
-            isAdmin,
-        });
-    });
+    //     console.log({
+    //         username,
+    //         firstName,
+    //         lastName,
+    //         isActive,
+    //         isAdmin,
+    //     });
+    // });
 
     [usernameInputElement, firstNameInputElement, lastNameInputElement].forEach(
         (elem) =>

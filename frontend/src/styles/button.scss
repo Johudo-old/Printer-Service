@@ -5,7 +5,7 @@
     align-items: center;
     justify-content: center;
 
-    padding: 16px 32px;
+    padding: 12px 24px;
     border-radius: 0.25rem;
 
     cursor: pointer;
@@ -67,4 +67,10 @@
         background-color: #ed5261;
         border: 1px solid #dc3545;
     }
+}
+
+.button_w-auto {
+    @include button;
+
+    width: auto;
 }

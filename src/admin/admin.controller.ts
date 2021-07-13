@@ -4,6 +4,7 @@ import {
     NotFoundException,
     Param,
     Render,
+    Request,
     UseFilters,
     UseGuards,
 } from "@nestjs/common";
@@ -29,6 +30,7 @@ export class AdminController {
             tables: [
                 { name: "Пользователи", url: "/admin/users" },
                 { name: "Заказы", url: "/admin/orders" },
+                { name: "Файлы", url: "/admin/files" },
             ],
         };
     }
@@ -41,34 +43,101 @@ export class AdminController {
         };
     }
 
-    // @Get("users/:userID")
-    // @Render("admin/admin-user")
-    // async user(@Param() { userID }) {
-    //     if (isNaN(Number(userID))) throw new NotFoundException();
+    @Get("users/:userID")
+    @Render("admin/admin-user")
+    async user(@Param() { userID }, @Request() req: any) {
+        if (isNaN(Number(userID))) throw new NotFoundException();
 
-    //     const user = await this.userService.getUserById(Number(userID));
+        const user = await this.userService.getUserById(Number(userID));
+        let orders = await this.orderService.getOrdersByUser(user, false);
 
-    //     if (!user) throw new NotFoundException();
+        if (!user) throw new NotFoundException();
 
-    //     return {
-    //         user: {
-    //             ...user,
-    //             orders: (
-    //                 await this.orderService.getOrdersByUserId(user, true)
-    //             ).reverse(),
-    //         },
-    //     };
-    // }
+        let printedPagesCount = 0;
+        orders.forEach((item) => {
+            printedPagesCount += item.pagesPrinted;
+        });
 
-    // @Get("orders")
-    // @Render("admin/admin-orders-list")
-    // async orderssTable() {
-    //     console.log(await this.orderService.getAllOrders(true));
+        const sortTime_start = new Date(req.query.sortTime_start).getTime();
+        const sortTime_end = new Date(req.query.sortTime_end).getTime();
 
-    //     return {
-    //         orders: await this.orderService.getAllOrders(true),
-    //     };
-    // }
+        if (sortTime_start)
+            orders = orders.filter((order) => {
+                return order.createDate.getTime() > sortTime_start;
+            });
+
+        if (sortTime_end)
+            orders = orders.filter((order) => {
+                return order.createDate.getTime() < sortTime_end;
+            });
+
+        return {
+            user: {
+                ...user,
+                orders: this.orderService.formatFilesDate(orders).reverse(),
+                ordersStatistic: {
+                    printedFilesCount: orders.length,
+                    printedPagesCount,
+
+                    sortTime: {
+                        start: !isNaN(sortTime_start)
+                            ? new Date(sortTime_start)
+                                  .toISOString()
+                                  .substring(0, 10)
+                            : undefined,
+                        end: !isNaN(sortTime_end)
+                            ? new Date(sortTime_end)
+                                  .toISOString()
+                                  .substring(0, 10)
+                            : undefined,
+                    },
+                },
+            },
+        };
+    }
+
+    @Get("orders")
+    @Render("admin/admin-orders-list")
+    async orderssTable(@Request() req: any) {
+        let orders = await this.orderService.getAllOrders(false);
+
+        let printedPagesCount = 0;
+        orders.forEach((item) => {
+            printedPagesCount += item.pagesPrinted;
+        });
+
+        const sortTime_start = new Date(req.query.sortTime_start).getTime();
+        const sortTime_end = new Date(req.query.sortTime_end).getTime();
+
+        if (sortTime_start)
+            orders = orders.filter((order) => {
+                return order.createDate.getTime() > sortTime_start;
+            });
+
+        if (sortTime_end)
+            orders = orders.filter((order) => {
+                return order.createDate.getTime() < sortTime_end;
+            });
+
+        return {
+            orders: this.orderService.formatFilesDate(orders).reverse(),
+            ordersStatistic: {
+                printedFilesCount: orders.length,
+                printedPagesCount,
+
+                sortTime: {
+                    start: !isNaN(sortTime_start)
+                        ? new Date(sortTime_start)
+                              .toISOString()
+                              .substring(0, 10)
+                        : undefined,
+                    end: !isNaN(sortTime_end)
+                        ? new Date(sortTime_end).toISOString().substring(0, 10)
+                        : undefined,
+                },
+            },
+        };
+    }
 
     // @Get("orders/:orderID")
     // @Render("admin/admin-order")

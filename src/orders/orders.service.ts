@@ -43,6 +43,16 @@ export class OrdersService {
         return this.formatFilesDate(ordersList) as any;
     }
 
+    async getAllOrders(formatDate: boolean = false): Promise<Order[]> {
+        const ordersList = await this.ordersRepository.find({
+            relations: ["file", "user"],
+        });
+
+        if (!formatDate) return ordersList;
+
+        return this.formatFilesDate(ordersList) as any;
+    }
+
     formatFilesDate(ordersList: Order[]) {
         return ordersList.map((order) => {
             return {

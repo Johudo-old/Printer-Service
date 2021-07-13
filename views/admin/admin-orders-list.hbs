@@ -16,11 +16,47 @@
             <a href="/admin">Назад</a>
             <h2 class="title">Заказы:</h2>
 
+            <div class="admin__statistic-block">
+                <h3>Статистика</h3>
+
+                <p>Напечатано файлов: <span>{{ordersStatistic.printedFilesCount}}</span></p>
+                <p>Напечатано страниц: <span>{{ordersStatistic.printedPagesCount}}</span></p>
+
+                <form class="admin__statistic-date-form">
+                    <h4>Сортировать:</h4>
+
+                    <div class="admin__statistic-date-form__input-block">
+                        <label for="sort-time_start">От: </label>
+
+                        {{#if ordersStatistic.sortTime.start}}
+                        <input type="date" id="sort-time_start" name="sortTime_start"
+                            value="{{ordersStatistic.sortTime.start}}">
+                        {{else}}
+                        <input type="date" id="sort-time_start" name="sortTime_start">
+                        {{/if}}
+                    </div>
+
+                    <div class="admin__statistic-date-form__input-block">
+                        <label for="sort-time_end">До: </label>
+
+                        {{#if ordersStatistic.sortTime.end}}
+                        <input type="date" id="sort-time_end" name="sortTime_end"
+                            value="{{ordersStatistic.sortTime.end}}">
+                        {{else}}
+                        <input type="date" id="sort-time_end" name="sortTime_end">
+                        {{/if}}
+                    </div>
+
+                    <button type="submit" class="main-button button_w-auto">Показать</button>
+                </form>
+            </div>
+
             <table>
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Название</th>
+                        <th>Кол-во стр.</th>
                         <th>Дата</th>
                         <th>Пользователь</th>
                     </tr>
@@ -30,8 +66,9 @@
                     <tr>
                         <td>{{this.id}}</td>
                         <td>
-                            <a href="/api/orders/{{this.id}}/download">{{this.originalName}}</a>
+                            <a href="/api/files/{{this.file.id}}/download">{{this.file.originalName}}</a>
                         </td>
+                        <td>{{this.file.pages}}</td>
                         <td>{{this.createDate}}</td>
                         <td><a href="/admin/users/{{this.user.id}}">{{this.user.username}}</a></td>
                     </tr>

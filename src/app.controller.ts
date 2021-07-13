@@ -28,8 +28,13 @@ export class AppController {
 
     @UseGuards(AuthenticatedGuard)
     @Get("/")
-    @Render("account")
-    async account(@Request() req) {
+    @Render("main")
+    async main(@Request() req) {
+        let isQueryShowed: boolean = false;
+
+        if (req.query.is_queue && req.query.is_queue === "true")
+            isQueryShowed = true;
+
         const user = await this.userService.getUserById(req.user.id);
         let files: Array<any> = await this.filesService.getFilesByUserId(
             user,
@@ -66,11 +71,17 @@ export class AppController {
             };
         });
 
-        return {
-            user: req.user,
-            files,
-            orders,
-        };
+        return isQueryShowed
+            ? {
+                  isQueryShowed,
+                  user: req.user,
+                  orders,
+              }
+            : {
+                  isQueryShowed,
+                  user: req.user,
+                  files,
+              };
     }
 
     @UseGuards(IsNotAuthenticatedGuard)

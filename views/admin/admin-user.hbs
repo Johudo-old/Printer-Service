@@ -39,16 +39,52 @@
                 </div>
 
                 <div class="buttons-block">
-                    <button type="button" class="green-button" id="update-button">Обновить</button>
+                    <button type="button" class="green-button button_w-auto" id="update-button">Обновить</button>
                     {{!-- <button type="button" class="red-button" id="delete-button">Удалить</button> --}}
                 </div>
             </form>
+
+            <div class="admin__statistic-block">
+                <h3>Статистика</h3>
+
+                <p>Напечатано файлов: <span>{{user.ordersStatistic.printedFilesCount}}</span></p>
+                <p>Напечатано страниц: <span>{{user.ordersStatistic.printedPagesCount}}</span></p>
+
+                <form class="admin__statistic-date-form">
+                    <h4>Сортировать:</h4>
+
+                    <div class="admin__statistic-date-form__input-block">
+                        <label for="sort-time_start">От: </label>
+
+                        {{#if user.ordersStatistic.sortTime.start}}
+                        <input type="date" id="sort-time_start" name="sortTime_start"
+                            value="{{user.ordersStatistic.sortTime.start}}">
+                        {{else}}
+                        <input type="date" id="sort-time_start" name="sortTime_start">
+                        {{/if}}
+                    </div>
+
+                    <div class="admin__statistic-date-form__input-block">
+                        <label for="sort-time_end">До: </label>
+
+                        {{#if user.ordersStatistic.sortTime.end}}
+                        <input type="date" id="sort-time_end" name="sortTime_end"
+                            value="{{user.ordersStatistic.sortTime.end}}">
+                        {{else}}
+                        <input type="date" id="sort-time_end" name="sortTime_end">
+                        {{/if}}
+                    </div>
+
+                    <button type="submit" class="main-button button_w-auto">Показать</button>
+                </form>
+            </div>
 
             <table>
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Название файла</th>
+                        <th>Кол-во стр.</th>
                         <th>Дата</th>
                     </tr>
                 </thead>
@@ -56,7 +92,8 @@
                     {{#each user.orders}}
                     <tr>
                         <td>{{this.id}}</td>
-                        <td>{{this.originalName}}</td>
+                        <td><a href="/admin/orders/{{this.id}}">{{this.file.originalName}}</a></td>
+                        <td>{{this.file.pages}}</td>
                         <td>{{this.createDate}}</td>
                     </tr>
                     {{/each}}

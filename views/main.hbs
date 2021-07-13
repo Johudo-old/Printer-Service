@@ -30,8 +30,16 @@
                     <input type="file" name="file" id="file-input" class="file-input" accept=".pdf">
             </form>
 
+            <nav class="main__navigation">
+                <ul class="main__navigation-list">
+                    <li><a href="/?is_queue=false">Мои файлы</a></li>
+                    <li><a href="/?is_queue=true">Текущая очередь</a></li>
+                </ul>
+            </nav>
+
+            {{#if isQueryShowed}}
             <div>
-                <h2 class="title">Текущие задачи:</h2>
+                <h2 class="title">Текущая очередь:</h2>
 
                 <table>
                     <thead>
@@ -58,7 +66,7 @@
                     </tbody>
                 </table>
             </div>
-
+            {{else}}
             <div>
                 <h2 class="title">Мои файлы:</h2>
 
@@ -87,6 +95,11 @@
                     </tbody>
                 </table>
             </div>
+            {{/if}}
+
+
+
+
         </main>
     </div>
 </div>
