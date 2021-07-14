@@ -21,10 +21,15 @@ import { ActiveUserGuard } from "src/common/guards/activeUser.guard";
 import { FindByIdParams } from "src/utils/findByIdParams";
 import { Response } from "express";
 import { FilesService } from "./files.service";
+import { OrdersService } from "src/orders/orders.service";
+import { Order } from "src/common/entities/order.entity";
 
 @Controller("api/files")
 export class FilesController {
-    constructor(private readonly fileService: FilesService) {}
+    constructor(
+        private readonly fileService: FilesService,
+        private readonly orderService: OrdersService,
+    ) {}
 
     @UseGuards(AuthenticatedGuard, ActiveUserGuard)
     @Post()
@@ -45,7 +50,6 @@ export class FilesController {
 
     @UseGuards(AuthenticatedGuard)
     @Get(":id/download")
-    @HttpCode(HttpStatus.OK)
     async downloadFile(
         @Res() res: Response,
         @Param() { id }: FindByIdParams,
@@ -55,7 +59,8 @@ export class FilesController {
 
         const file = await this.fileService.getFileById(Number(id));
 
-        if (!file) throw new NotFoundException();
+        if (!file || !(req.user.id === file.user.id || req.user.isAdmin))
+            throw new NotFoundException();
 
         try {
             res.download(file.path, file.originalName);
@@ -64,5 +69,22 @@ export class FilesController {
         }
 
         return;
+    }
+
+    @UseGuards(AuthenticatedGuard)
+    @Get(":id/print")
+    @HttpCode(HttpStatus.OK)
+    async printFile(
+        @Param() { id }: FindByIdParams,
+        @Request() req,
+    ): Promise<Order> {
+        if (isNaN(Number(id))) return;
+
+        const file = await this.fileService.getFileById(Number(id));
+
+        if (!file || !(req.user.id === file.user.id || req.user.isAdmin))
+            throw new NotFoundException();
+
+        return await this.orderService.createOrder(file);
     }
 }

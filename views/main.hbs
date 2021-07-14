@@ -46,9 +46,10 @@
                         <tr>
                             <th>ID</th>
                             <th>Название файла</th>
-                            <th>Напечатано страниц</th>
+                            {{!-- <th>Напечатано страниц</th> --}}
                             <th>Статус</th>
-                            <th>Дата</th>
+                            {{!-- <th>Дата</th> --}}
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,9 +59,14 @@
                             <td>
                                 <a href="/api/files/{{this.file.id}}/download">{{this.file.originalName}}</a>
                             </td>
-                            <td>{{this.pagesPrinted}}</td>
+                            {{!-- <td>{{this.pagesPrinted}}</td> --}}
                             <td>{{this.status}}</td>
-                            <td>{{this.createDate}}</td>
+                            {{!-- <td>{{this.createDate}}</td> --}}
+                            <td>
+                                <button type="button" data-id="{{this.id}}"
+                                    class="red-button button_w-auto cancel-printing-button"
+                                    style="margin: 0 auto;">Oтменить</button>
+                            </td>
                         </tr>
                         {{/each}}
                     </tbody>
@@ -89,7 +95,11 @@
                             </td>
                             <td>{{this.pages}}</td>
                             <td>{{this.createDate}}</td>
-                            <td><button type="button">Напечатать</button></td>
+                            <td>
+                                <button type="button" data-id="{{this.id}}"
+                                    class="main-button button_w-auto start-printing-button"
+                                    style="margin: 0 auto;">Напечатать</button>
+                            </td>
                         </tr>
                         {{/each}}
                     </tbody>

@@ -1,4 +1,5 @@
-import { createFileRequest } from "./api/filesApi";
+import { createFileRequest, printFileRequest } from "./api/filesApi";
+import { cancelPrintingOrderRequest } from "./api/ordersApi";
 import { showNotification } from "./lib";
 
 const formElement = document.getElementById("file-form");
@@ -6,6 +7,12 @@ const fileInputElement = document.getElementById("file-input");
 const labelElement = document.getElementById("file-input-label");
 const labeTextElement = labelElement.getElementsByTagName("span")[0];
 const submitButtonElement = labelElement.getElementsByTagName("button")[0];
+const startPrintingButtons = Array.from(
+    document.getElementsByClassName("start-printing-button"),
+);
+const cancelPrintingButtons = Array.from(
+    document.getElementsByClassName("cancel-printing-button"),
+);
 
 let droppedFile: File;
 
@@ -113,3 +120,41 @@ submitButtonElement.addEventListener("click", function (event: any) {
         },
     );
 });
+
+if (startPrintingButtons.length > 0) {
+    startPrintingButtons.forEach((item) => {
+        item.addEventListener("click", async function (event: MouseEvent) {
+            const id = Number((event.target as HTMLButtonElement).dataset.id);
+
+            if (isNaN(id)) return;
+
+            printFileRequest(
+                id,
+                (res) => {
+                    console.log(res);
+                    location.search = "?is_queue=true";
+                },
+                (err) => console.log(err),
+            );
+        });
+    });
+}
+
+if (cancelPrintingButtons.length > 0) {
+    cancelPrintingButtons.map((item) => {
+        item.addEventListener("click", function (event: MouseEvent) {
+            const id = Number((event.target as HTMLButtonElement).dataset.id);
+
+            if (isNaN(id)) return;
+
+            cancelPrintingOrderRequest(
+                id,
+                (res) => {
+                    console.log(res);
+                    location.reload();
+                },
+                (err) => console.log(err),
+            );
+        });
+    });
+}

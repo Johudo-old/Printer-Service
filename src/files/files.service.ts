@@ -51,7 +51,9 @@ export class FilesService {
     }
 
     async getFileById(fileID: number): Promise<File> {
-        const file = await this.filesRepository.findOne(fileID);
+        const file = await this.filesRepository.findOne(fileID, {
+            relations: ["user"],
+        });
 
         if (!file)
             throw new HttpException(

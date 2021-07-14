@@ -14,3 +14,14 @@ export function createFileRequest(
         .then((res) => successCallback(res))
         .catch((err) => errorCallback(err));
 }
+
+export function printFileRequest(
+    fileId: number,
+    successCallback = (res: AxiosResponse<any>) => {},
+    errorCallback = (err: AxiosError<any>) => {},
+) {
+    axios
+        .get("/api/files/" + fileId + "/print")
+        .then((res) => successCallback(res))
+        .catch((err) => errorCallback(err));
+}

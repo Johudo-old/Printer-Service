@@ -6,8 +6,9 @@ import { User } from "src/common/entities/user.entity";
 import { OrderStatus } from "src/common/enums/orderStatuses.enum";
 import { formatDatabaseDate } from "src/utils/formatDatabaseDate";
 import { printFile } from "src/utils/printerWorker.util";
-import { Repository } from "typeorm";
+import { FindOperator, Repository } from "typeorm";
 import * as dotenv from "dotenv";
+import { UpdateOrderDto } from "./dto/update-order.dto";
 
 dotenv.config();
 
@@ -51,6 +52,32 @@ export class OrdersService {
         return this.formatFilesDate(ordersList) as any;
     }
 
+    async getOrdersByPrinterTasks(
+        tasks: string[],
+        formatDate: boolean = false,
+    ) {
+        if (tasks.length < 1) return [];
+
+        const ordersList = await this.ordersRepository.find({
+            relations: ["file", "user"],
+            where: tasks
+                .map((task) => "Order.printerTaskName LIKE '%" + task + "%'")
+                .join(" OR "),
+        });
+
+        if (!formatDate) return ordersList;
+
+        return this.formatFilesDate(ordersList) as any;
+    }
+
+    async getOrderById(orderID: number): Promise<Order> {
+        const order = await this.ordersRepository.findOne(orderID, {
+            relations: ["user", "file"],
+        });
+
+        return order;
+    }
+
     async getAllOrders(formatDate: boolean = false): Promise<Order[]> {
         const ordersList = await this.ordersRepository.find({
             relations: ["file", "user"],
@@ -59,6 +86,20 @@ export class OrdersService {
         if (!formatDate) return ordersList;
 
         return this.formatFilesDate(ordersList) as any;
+    }
+
+    async updateOrder(
+        orderId: number,
+        updateUserDto: UpdateOrderDto,
+    ): Promise<any> {
+        const updatedUser = await this.ordersRepository.update(
+            {
+                id: orderId,
+            },
+            updateUserDto,
+        );
+
+        return await this.getOrderById(orderId);
     }
 
     formatFilesDate(ordersList: Order[]) {

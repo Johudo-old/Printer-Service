@@ -16,6 +16,9 @@ import { FilesService } from "./files/files.service";
 import { OrdersService } from "./orders/orders.service";
 import { UsersService } from "./users/users.service";
 import { listPrintingFiles } from "./utils/printerWorker.util";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 @Controller()
 @UseFilters(AuthExceptionFilter)
@@ -38,11 +41,6 @@ export class AppController {
 
         const user = await this.userService.getUserById(req.user.id);
 
-        const execResult = await listPrintingFiles();
-
-        // console.log("RESULT", execResult.toString("utf8"));
-        console.log("RESULT", execResult);
-
         if (!isQueryShowed) {
             let files: Array<any> = await this.filesService.getFilesByUserId(
                 user,
@@ -56,8 +54,22 @@ export class AppController {
             };
         }
 
-        let orders: Array<any> = await this.ordersService.getOrdersByUser(
-            user,
+        const execResult = await listPrintingFiles();
+        //         const execResult = `cowork-51               pi               86016   Ср 14 июл 2021 17:00:50
+        // cowork-52               pi               86016   Ср 14 июл 2021 17:00:52`;
+        const regexp = new RegExp(process.env.PRINTER_NAME + "-\\d+", "g");
+        const matches = [];
+        let match = regexp.exec(execResult);
+
+        while (match != null) {
+            matches.push(match[0]);
+            match = regexp.exec(execResult);
+        }
+
+        console.log(matches);
+
+        let orders: Array<any> = await this.ordersService.getOrdersByPrinterTasks(
+            matches,
             true,
         );
 
@@ -73,7 +85,7 @@ export class AppController {
                     statusText = "Отправлено на печать";
                     break;
                 case OrderStatus.Printed:
-                    statusText = "Напечатано";
+                    statusText = "Отправлено на печать";
                     break;
                 case OrderStatus.Canceled:
                     statusText = "Отменено";
@@ -84,6 +96,7 @@ export class AppController {
                 ...order,
                 status: statusText,
                 pagesPrinted: pagesPrinted,
+                canCanceled: user.id === order.user.id || user.isAdmin,
             };
         });
 
