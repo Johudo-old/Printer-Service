@@ -15,6 +15,7 @@ import { IsNotAuthenticatedGuard } from "./common/guards/inNotAuthenticated.guar
 import { FilesService } from "./files/files.service";
 import { OrdersService } from "./orders/orders.service";
 import { UsersService } from "./users/users.service";
+import { listPrintingFiles } from "./utils/printerWorker.util";
 
 @Controller()
 @UseFilters(AuthExceptionFilter)
@@ -36,10 +37,25 @@ export class AppController {
             isQueryShowed = true;
 
         const user = await this.userService.getUserById(req.user.id);
-        let files: Array<any> = await this.filesService.getFilesByUserId(
-            user,
-            true,
-        );
+
+        const execResult = await listPrintingFiles();
+
+        // console.log("RESULT", execResult.toString("utf8"));
+        console.log("RESULT", execResult);
+
+        if (!isQueryShowed) {
+            let files: Array<any> = await this.filesService.getFilesByUserId(
+                user,
+                true,
+            );
+
+            return {
+                isQueryShowed,
+                user: req.user,
+                files,
+            };
+        }
+
         let orders: Array<any> = await this.ordersService.getOrdersByUser(
             user,
             true,
@@ -71,17 +87,11 @@ export class AppController {
             };
         });
 
-        return isQueryShowed
-            ? {
-                  isQueryShowed,
-                  user: req.user,
-                  orders,
-              }
-            : {
-                  isQueryShowed,
-                  user: req.user,
-                  files,
-              };
+        return {
+            isQueryShowed,
+            user: req.user,
+            orders,
+        };
     }
 
     @UseGuards(IsNotAuthenticatedGuard)

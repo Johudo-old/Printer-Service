@@ -1,10 +1,50 @@
 import { exec } from "child_process";
+import { promisify } from "util";
 
-export function printFile(filePath: string) {
+const asyncExec = promisify(exec);
+
+export async function printFile(
+    filePath: string,
+    printerName: string,
+): Promise<string> {
+    console.log("lp -d " + printerName + " " + filePath);
+
     try {
-        console.log("lp -d cowork " + filePath);
-        exec("lp -d cowork " + filePath);
+        const { stdout, stderr } = await asyncExec(
+            "lp -d " + printerName + " " + filePath,
+        );
+
+        return stdout || stderr;
     } catch (e) {
-        console.log("Failed to print file", e);
+        return e.stderr;
+    }
+}
+
+export async function cancelPrintFile(
+    taskId: string,
+    printerName: string,
+): Promise<string> {
+    console.log("lprm -P " + printerName + " " + taskId);
+
+    try {
+        const { stdout, stderr } = await asyncExec(
+            "lprm -P " + printerName + " " + taskId,
+        );
+
+        return stdout || stderr;
+    } catch (e) {
+        return e.stderr;
+    }
+}
+
+export async function listPrintingFiles(): Promise<string> {
+    console.log("lpstat");
+
+    try {
+        const { stdout, stderr } = await asyncExec("lpstat");
+
+        return stdout || stderr;
+    } catch (e) {
+        return e.stderr;
     }
 }

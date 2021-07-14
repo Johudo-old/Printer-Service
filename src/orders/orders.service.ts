@@ -7,6 +7,9 @@ import { OrderStatus } from "src/common/enums/orderStatuses.enum";
 import { formatDatabaseDate } from "src/utils/formatDatabaseDate";
 import { printFile } from "src/utils/printerWorker.util";
 import { Repository } from "typeorm";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 @Injectable()
 export class OrdersService {
@@ -16,15 +19,20 @@ export class OrdersService {
     ) {}
 
     async createOrder(file: File): Promise<Order> {
+        const execResult = await printFile(file.path, process.env.PRINTER_NAME);
+        const regexp = new RegExp(process.env.PRINTER_NAME + "-\\d+");
+
+        let match = regexp.exec(execResult);
+        const task = Array.isArray(match) ? match[0] : null;
+
         const newOrder = await this.ordersRepository.save({
             createDate: new Date(),
             user: file.user,
-            status: OrderStatus.Printing,
+            status: OrderStatus.Printed,
             pagesPrinted: 0,
             file: file,
+            printerTaskName: task,
         });
-
-        printFile(newOrder.file.path);
 
         return newOrder;
     }

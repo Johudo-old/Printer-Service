@@ -42,6 +42,9 @@ export class Order extends BaseEntity {
 
     @RelationId((file: File) => file.user)
     fileId: number;
+
+    @Column({ type: "varchar", nullable: true })
+    printerTaskName: string;
 }
 
 export const OrderAdminResourceOption = {
