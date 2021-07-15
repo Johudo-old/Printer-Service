@@ -51,30 +51,32 @@
                 </form>
             </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Название</th>
-                        <th>Кол-во стр.</th>
-                        <th>Дата</th>
-                        <th>Пользователь</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each orders}}
-                    <tr>
-                        <td>{{this.id}}</td>
-                        <td>
-                            <a href="/api/files/{{this.file.id}}/download">{{this.file.originalName}}</a>
-                        </td>
-                        <td>{{this.file.pages}}</td>
-                        <td>{{this.createDate}}</td>
-                        <td><a href="/admin/users/{{this.user.id}}">{{this.user.username}}</a></td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Название</th>
+                            <th>Кол-во стр.</th>
+                            <th>Дата</th>
+                            <th>Пользователь</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each orders}}
+                        <tr>
+                            <td>{{this.id}}</td>
+                            <td>
+                                <a href="/api/files/{{this.file.id}}/download">{{this.file.originalName}}</a>
+                            </td>
+                            <td>{{this.file.pages}}</td>
+                            <td>{{this.createDate}}</td>
+                            <td><a href="/admin/users/{{this.user.id}}">{{this.user.username}}</a></td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
         </main>
     </div>
 </div>

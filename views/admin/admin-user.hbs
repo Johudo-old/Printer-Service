@@ -79,26 +79,28 @@
                 </form>
             </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Название файла</th>
-                        <th>Кол-во стр.</th>
-                        <th>Дата</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each user.orders}}
-                    <tr>
-                        <td>{{this.id}}</td>
-                        <td><a href="/admin/orders/{{this.id}}">{{this.file.originalName}}</a></td>
-                        <td>{{this.file.pages}}</td>
-                        <td>{{this.createDate}}</td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Название файла</th>
+                            <th>Кол-во стр.</th>
+                            <th>Дата</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each user.orders}}
+                        <tr>
+                            <td>{{this.id}}</td>
+                            <td><a href="/admin/orders/{{this.id}}">{{this.file.originalName}}</a></td>
+                            <td>{{this.file.pages}}</td>
+                            <td>{{this.createDate}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
         </main>
     </div>
 </div>
