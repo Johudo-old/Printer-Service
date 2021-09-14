@@ -30,7 +30,7 @@ export class AdminController {
             tables: [
                 { name: "Пользователи", url: "/admin/users" },
                 { name: "Заказы", url: "/admin/orders" },
-                { name: "Файлы", url: "/admin/files" },
+                // { name: "Файлы", url: "/admin/files" },
             ],
         };
     }
@@ -138,23 +138,4 @@ export class AdminController {
             },
         };
     }
-
-    // @Get("orders/:orderID")
-    // @Render("admin/admin-order")
-    // async order(@Param() { userID }) {
-    //     if (isNaN(Number(userID))) throw new NotFoundException();
-
-    //     const user = await this.userService.getUserById(Number(userID));
-
-    //     if (!user) throw new NotFoundException();
-
-    //     return {
-    //         user: {
-    //             ...user,
-    //             orders: (
-    //                 await this.orderService.getOrdersByUserId(user, true)
-    //             ).reverse(),
-    //         },
-    //     };
-    // }
 }

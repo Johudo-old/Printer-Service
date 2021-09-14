@@ -110,7 +110,7 @@ submitButtonElement.addEventListener("click", function (event: any) {
 
             if (err.response.status === 403) {
                 showNotification(
-                    "Ошибка: у вас нет прав на печать! Подойдите к Андрею Горелову.",
+                    "Ошибка: у вас нет прав на печать! Напишите @Johudo в телеграмме.",
                     "error",
                 );
                 return;

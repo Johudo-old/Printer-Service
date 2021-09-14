@@ -25,7 +25,7 @@ export class User extends BaseEntity {
     @Column({ type: "varchar", nullable: false })
     lastName: string;
 
-    @Column({ type: "boolean", default: false })
+    @Column({ type: "boolean", default: true })
     isActive: boolean;
 
     @Column({ type: "boolean", default: false })

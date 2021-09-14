@@ -6,7 +6,6 @@ import {
     UseFilters,
     UseGuards,
 } from "@nestjs/common";
-import { AppService } from "./app.service";
 import { Order } from "./common/entities/order.entity";
 import { OrderStatus } from "./common/enums/orderStatuses.enum";
 import { AuthExceptionFilter } from "./common/filters/auth-exceptions.filter";
@@ -24,7 +23,6 @@ dotenv.config();
 @UseFilters(AuthExceptionFilter)
 export class AppController {
     constructor(
-        private readonly appService: AppService,
         private readonly ordersService: OrdersService,
         private readonly filesService: FilesService,
         private readonly userService: UsersService,
