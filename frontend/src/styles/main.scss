@@ -71,10 +71,6 @@ a {
     width: 80px;
     margin: 0 auto;
     padding: 20px 0 0;
-
-    @media (max-width: 460px) {
-        margin-left: 0;
-    }
 }
 
 /* Title */
@@ -237,6 +233,7 @@ a {
     .user-svg {
         display: block;
         margin-right: 12px;
+        margin-left: 0px;
 
         img {
             width: 32px;
